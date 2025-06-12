@@ -1,12 +1,17 @@
 import typer
+import json
 
 todo_list = typer.Typer()
 
-tasks = []
+tasks = {
+    "do homework": False
+}
 
 @todo_list.command()
 def add_task(task: str):
-    tasks.append(task)
+    tasks.update({task: False})
+    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+        json.dump(tasks, write_file, indent=1)
 
 @todo_list.command()
 def list_tasks():
