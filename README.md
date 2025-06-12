@@ -5,4 +5,5 @@ to add, remove, show tasks all happen by calling an option after running the bin
 - `--add`
 - `--remove`
 - `--showTask`
+<br>
 these are the options to use the binary keep in mind that `--remove` just marks your task complete, but it is called that because in the code it won't mark it as done rather remove it completely from the list
