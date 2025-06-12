@@ -1,8 +1,6 @@
 import typer
 import json
 from rich import print as pr
-import os
-import sys
 
 """
 Author: Omar Arabi
@@ -17,32 +15,15 @@ and all will be saved in a .json file
 # we make the app run as a python script not as a typer script
 todo_list = typer.Typer()
 
-def get_persistent_json_path():
-    # You can choose any persistent location, here current directory
-    return os.path.join(os.path.abspath("."), "tasks.json")
-
-def read_json():
-    persistent_path = get_persistent_json_path()
-    # If the persistent file doesn't exist, copy from bundled default
-    if not os.path.exists(persistent_path):
-        # Copy default bundled JSON to persistent location
-        if hasattr(sys, '_MEIPASS'):
-            bundled_path = os.path.join(sys._MEIPASS, "tasks.json")
-            import shutil
-            shutil.copyfile(bundled_path, persistent_path)
-        else:
-            # Running normally, maybe no bundled file, create empty dict
-            with open(persistent_path, "w", encoding="utf-8") as f:
-                json.dump({}, f)
-    # Now read from persistent file
-    with open(persistent_path, mode="r", encoding="utf-8") as read_file:
-        return json.load(read_file)
-
+# put the repeated commands into these functions
 def write_json(dict_to_json):
-    persistent_path = get_persistent_json_path()
-    with open(persistent_path, mode="w", encoding="utf-8") as write_file:
+    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
         json.dump(dict_to_json, write_file, indent=4)
 
+def read_json():
+    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
+            return json.load(read_file)
+    
 def empty_error():
     pr("[red]You don't have any tasks in the list yet,[/red]")
     pr("[red]use the 'add' command to add tasks to your list [/red]")
