@@ -36,6 +36,20 @@ def mark_done(index: int):
     with open("tasks.json", mode="w", encoding="utf-8") as write_file:
         json.dump(tasks_to_mark, write_file, indent=4)
 
+@todo_list.command()
+def remove(index: int):
+    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
+        tasks_to_remove = json.load(read_file)
+    
+    for i, v in enumerate(tasks_to_remove):
+        if index - 1 == i:
+            task_to_remove = v
+    
+    tasks_to_remove.pop(task_to_remove)
+    
+    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+        json.dump(tasks_to_remove, write_file, indent=4)
+
 
 if __name__ == "__main__":
     todo_list()
