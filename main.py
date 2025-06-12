@@ -25,7 +25,7 @@ def read_json():
 # we make the first command add to add a task
 @todo_list.command()
 def add(task: str):
-    tasks = {}
+    tasks = read_json()
     tasks_split = task.split(", ")
 
     # we check if the length of the split list is more than one so there is more than one task we loop through it until all of them are added
