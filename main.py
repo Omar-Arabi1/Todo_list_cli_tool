@@ -68,34 +68,33 @@ def mark_done(index: int):
 # we make the fourth command task remove 
 @todo_list.command()
 # both these are now options one to remove a certain index default one the other to remove all default False
-def remove(index: int = 1, remove_all: bool = False):
+def remove(index: int = 1, all: bool = False):
     with open("tasks.json", mode="r", encoding="utf-8") as read_file:
         tasks_to_remove = json.load(read_file)
     
-    remove_task = False
-    if not remove_all: # we check if the user made the option to true 
+    if not all: # we check if the user made the option to true 
         for i, v in enumerate(tasks_to_remove):
             if index - 1 == i:
                 # we check the index remove it and break out of the loop we break because we can't change the size of the iterable during the loop
-                while True:
-                    confirmation = input(f"are you sure you want to remove {v} (y/N): ")
-                    if confirmation == "y":
-                        remove_task = True
-                        print(f"Task {v} removed")
-                        break
-                    else:
-                        print(f"Task {v} not removed")
-                        break
-            if remove_task:
-                tasks_to_remove.pop(v)
-                break
+                confirmation = input(f"are you sure you want to remove {v} (y/N): ")
+                if confirmation == "y":
+                    tasks_to_remove.pop(v)
+                    print(f"Task {v} removed")
+                    break
+                else:
+                    print(f"Task {v} not removed")
+                    break
         
         with open("tasks.json", mode="w", encoding="utf-8") as write_file:
             json.dump(tasks_to_remove, write_file, indent=4)
     else:
-        with open("tasks.json", mode="w", encoding="utf-8") as write_file:
-            json.dump({}, write_file, indent=4)
-            print("all tasks are removed successfully")
+        confirmation = input(f"are you sure you want to remove the entire list (y/N): ")
+        if confirmation == "y":
+            with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+                json.dump({}, write_file, indent=4)
+                print("all tasks are removed successfully")
+        else:
+            print("The list was not removed")
 
 # runs the program as a python script
 if __name__ == "__main__":
