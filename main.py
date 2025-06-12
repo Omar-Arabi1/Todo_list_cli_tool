@@ -38,7 +38,7 @@ def add(task: str):
     # to the dictionary "tasks"
     if len(tasks_split) == 1:
         tasks.update({task: False})
-        pr("[greeen]task added successfully[/green]")
+        pr("[green]task added successfully[/green]")
     else:
         for i in tasks_split:
             tasks.update({i: False})
@@ -77,14 +77,14 @@ def mark_done(index: int):
                 # we check wether or not the task is already marked true so that we tell the user it is already marked done
                 if tasks_to_mark[v] == False:
                     tasks_to_mark[v] = True
-                    pr(f"[cyan]{v} marked done[/cyan]")
+                    pr(f"[green]{v} marked done[/green]")
                     write_json(tasks_to_mark)
                     return
                 else:
-                    print("[orange]The task is already marked as true[/orange]")
+                    pr("[red]The task is already marked as true[/red]")
                     return
 
-        print("[red]The index you entered isn't in the tasks[/red]") # if all fails we tell the user that the intered index is out of range
+        pr("[red]The index you entered isn't in the tasks[/red]") # if all fails we tell the user that the intered index is out of range
 
 # we make the fourth command task remove 
 @todo_list.command()
