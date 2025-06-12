@@ -24,9 +24,12 @@ def add(task: str):
     # to the dictionary "tasks"
     if len(tasks_split) == 1:
         tasks.update({task: False})
+        print("task added successfully")
     else:
         for i in tasks_split:
             tasks.update({i: False})
+        
+        print("tasks added successfully")
 
     # we finally save the dictionary "tasks" into the tasks.json file 
     with open("tasks.json", mode="w", encoding="utf-8") as write_file:
@@ -57,6 +60,7 @@ def mark_done(index: int):
     for i, v in enumerate(tasks_to_mark):
         if index - 1 == i:
             tasks_to_mark[v] = True
+            print(f"{v} marked done")
 
     with open("tasks.json", mode="w", encoding="utf-8") as write_file:
         json.dump(tasks_to_mark, write_file, indent=4)
@@ -68,10 +72,21 @@ def remove(index: int = 1, remove_all: bool = False):
     with open("tasks.json", mode="r", encoding="utf-8") as read_file:
         tasks_to_remove = json.load(read_file)
     
+    remove_task = False
     if not remove_all: # we check if the user made the option to true 
         for i, v in enumerate(tasks_to_remove):
             if index - 1 == i:
                 # we check the index remove it and break out of the loop we break because we can't change the size of the iterable during the loop
+                while True:
+                    confirmation = input(f"are you sure you want to remove {v} (y/N): ")
+                    if confirmation == "y":
+                        remove_task = True
+                        print(f"Task {v} removed")
+                        break
+                    else:
+                        print(f"Task {v} not removed")
+                        break
+            if remove_task:
                 tasks_to_remove.pop(v)
                 break
         
@@ -80,6 +95,7 @@ def remove(index: int = 1, remove_all: bool = False):
     else:
         with open("tasks.json", mode="w", encoding="utf-8") as write_file:
             json.dump({}, write_file, indent=4)
+            print("all tasks are removed successfully")
 
 # runs the program as a python script
 if __name__ == "__main__":
