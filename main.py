@@ -3,10 +3,9 @@ import json
 
 todo_list = typer.Typer()
 
-tasks = {}
-
 @todo_list.command()
 def add_task(task: str):
+    tasks = {}
     tasks_split = task.split(", ")
     if len(tasks_split) == 1:
         tasks.update({task: False})
@@ -19,8 +18,11 @@ def add_task(task: str):
 
 @todo_list.command()
 def list_tasks():
-    for index, value in enumerate(tasks):
-        print(f"{index + 1} - {value}")
+    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
+        tasks_to_list = json.load(read_file)
+    
+    for i, v in enumerate(tasks_to_list):
+        print(f"{i + 1} - {v}")
 
 if __name__ == "__main__":
     todo_list()
