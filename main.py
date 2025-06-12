@@ -99,12 +99,13 @@ def remove(index: int = 1, all: bool = False):
                     if confirmation == "y":
                         tasks_to_remove.pop(v)
                         print(f"Task {v} removed")
-                        break
+                        write_json(tasks_to_remove)
+                        return
                     else:
                         print(f"Task {v} not removed")
-                        break
-            
-            write_json(tasks_to_remove)
+                        return
+
+            print("The index you entered is out of range")
         else:
             confirmation = input(f"are you sure you want to remove the entire list (y/N): ")
             if confirmation == "y":
