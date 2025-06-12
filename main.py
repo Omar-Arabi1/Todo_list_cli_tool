@@ -47,14 +47,17 @@ def add(task: str):
 def list():
     # we open the file for reading 
     tasks_to_list = read_json()
-
-    # we loop through it adding the index plus 1 to be one indexed not zero indexed and we put the key next to it
-    # and we also check if its done or not so we show the user a message
-    for i, v in enumerate(tasks_to_list):
-        if tasks_to_list[v] == False:
-            print(f"{i + 1} - {v} - not done")
-        else:
-            print(f"{i + 1} - {v} - done")
+    if len(tasks_to_list) == 0:
+        print("You don't have any tasks in the list yet,")
+        print("use the 'add' command to add tasks to your list")
+    else:
+        # we loop through it adding the index plus 1 to be one indexed not zero indexed and we put the key next to it
+        # and we also check if its done or not so we show the user a message
+        for i, v in enumerate(tasks_to_list):
+            if tasks_to_list[v] == False:
+                print(f"{i + 1} - {v} - not done")
+            else:
+                print(f"{i + 1} - {v} - done")
 
 # we make the third command mark-done
 @todo_list.command()
