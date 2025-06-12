@@ -14,6 +14,7 @@ and all will be saved in a .json file
 # we make the app run as a python script not as a typer script
 todo_list = typer.Typer()
 
+# put the repeated commands into these functions
 def write_json(dict_to_json):
     with open("tasks.json", mode="w", encoding="utf-8") as write_file:
         json.dump(dict_to_json, write_file, indent=4)
@@ -29,7 +30,7 @@ def empty_error():
 # we make the first command add to add a task
 @todo_list.command()
 def add(task: str):
-    tasks = read_json()
+    tasks = read_json() # we read the json file first before updating it to not remove the old user data
     tasks_split = task.split(", ")
 
     # we check if the length of the split list is more than one so there is more than one task we loop through it until all of them are added
@@ -51,7 +52,7 @@ def add(task: str):
 def list():
     # we open the file for reading 
     tasks_to_list = read_json()
-    if len(tasks_to_list) == 0:
+    if len(tasks_to_list) == 0: # we check if its empty and print and error message else we continue
         empty_error()
     else:
         # we loop through it adding the index plus 1 to be one indexed not zero indexed and we put the key next to it
@@ -66,12 +67,13 @@ def list():
 @todo_list.command()
 def mark_done(index: int):
     tasks_to_mark = read_json()
-    if len(tasks_to_mark) == 0:
+    if len(tasks_to_mark) == 0: # same error checking as list
         empty_error()
     else:
         # we mark the task done by checking the given index subracted by one because the user will enter a one index number not 0 indexed
         for i, v in enumerate(tasks_to_mark):
             if index - 1 == i:
+                # we check wether or not the task is already marked true so that we tell the user it is already marked done
                 if tasks_to_mark[v] == False:
                     tasks_to_mark[v] = True
                     print(f"{v} marked done")
@@ -81,21 +83,21 @@ def mark_done(index: int):
                     print("The task is already marked as true")
                     return
 
-        print("The index you entered isn't in the tasks")
+        print("The index you entered isn't in the tasks") # if all fails we tell the user that the intered index is out of range
 
 # we make the fourth command task remove 
 @todo_list.command()
 # both these are now options one to remove a certain index default one the other to remove all default False
 def remove(index: int = 1, all: bool = False):
     tasks_to_remove = read_json()
-    if len(tasks_to_remove) == 0:
+    if len(tasks_to_remove) == 0: # same error cheking as list
         empty_error()
     else:
         if not all: # we check if the user made the option to true 
             for i, v in enumerate(tasks_to_remove):
                 if index - 1 == i:
                     # we check the index remove it and break out of the loop we break because we can't change the size of the iterable during the loop
-                    confirmation = input(f"are you sure you want to remove {v} (y/N): ")
+                    confirmation = input(f"are you sure you want to remove {v} (y/N): ") # confirmation on wheter or not to delete the task
                     if confirmation == "y":
                         tasks_to_remove.pop(v)
                         print(f"Task {v} removed")
@@ -105,7 +107,7 @@ def remove(index: int = 1, all: bool = False):
                         print(f"Task {v} not removed")
                         return
 
-            print("The index you entered is out of range")
+            print("The index you entered is out of range") # if all fails we tell the user that the intered index is out of range
         else:
             confirmation = input(f"are you sure you want to remove the entire list (y/N): ")
             if confirmation == "y":
