@@ -40,6 +40,7 @@ def list():
         tasks_to_list = json.load(read_file)
 
     # we loop through it adding the index plus 1 to be one indexed not zero indexed and we put the key next to it
+    # and we also check if its done or not so we show the user a message
     for i, v in enumerate(tasks_to_list):
         if tasks_to_list[v] == False:
             print(f"{i + 1} - {v} - not done")
