@@ -27,6 +27,7 @@ If you want to add multiple commands at once, write them with ', ' as a separati
 
 To add multiple tasks, write:
 
+`"do dishes, homework, practice coding, learn from this repo :)"`
 
 Make sure you have `" "` outside of your tasks as shown for it to work since the function expects a string.
 
