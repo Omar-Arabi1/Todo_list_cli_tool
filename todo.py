@@ -17,11 +17,11 @@ todo_list = typer.Typer()
 
 # put the repeated commands into these functions
 def write_json(dict_to_json):
-    with open("_internal/tasks.json", mode="w", encoding="utf-8") as write_file:
+    with open("/usr/local/bin/dist/todo/_internal/tasks.json", mode="w", encoding="utf-8") as write_file:
         json.dump(dict_to_json, write_file, indent=4)
 
 def read_json():
-    with open("_internal/tasks.json", mode="r", encoding="utf-8") as read_file:
+    with open("/usr/local/bin/dist/todo/_internal/tasks.json", mode="r", encoding="utf-8") as read_file:
             return json.load(read_file)
     
 def empty_error():
