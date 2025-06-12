@@ -1,5 +1,6 @@
 import typer
 import json
+from rich import print as pr
 
 """
 Author: Omar Arabi
@@ -24,8 +25,8 @@ def read_json():
             return json.load(read_file)
     
 def empty_error():
-    print("You don't have any tasks in the list yet,")
-    print("use the 'add' command to add tasks to your list")
+    pr("[red]You don't have any tasks in the list yet,[/red]")
+    pr("[red]use the 'add' command to add tasks to your list [/red]")
 
 # we make the first command add to add a task
 @todo_list.command()
@@ -37,12 +38,12 @@ def add(task: str):
     # to the dictionary "tasks"
     if len(tasks_split) == 1:
         tasks.update({task: False})
-        print("task added successfully")
+        pr("[greeen]task added successfully[/green]")
     else:
         for i in tasks_split:
             tasks.update({i: False})
         
-        print("tasks added successfully")
+        pr("[green]tasks added successfully[/green]")
 
     # we finally save the dictionary "tasks" into the tasks.json file 
     write_json(tasks)
@@ -59,9 +60,9 @@ def list():
         # and we also check if its done or not so we show the user a message
         for i, v in enumerate(tasks_to_list):
             if tasks_to_list[v] == False:
-                print(f"{i + 1} - {v} - not done")
+                pr(f"{i + 1} - {v} - [red]not done[/red]")
             else:
-                print(f"{i + 1} - {v} - done")
+                pr(f"{i + 1} - {v} - [green]done[/green]")
 
 # we make the third command mark-done
 @todo_list.command()
@@ -76,14 +77,14 @@ def mark_done(index: int):
                 # we check wether or not the task is already marked true so that we tell the user it is already marked done
                 if tasks_to_mark[v] == False:
                     tasks_to_mark[v] = True
-                    print(f"{v} marked done")
+                    pr(f"[cyan]{v} marked done[/cyan]")
                     write_json(tasks_to_mark)
                     return
                 else:
-                    print("The task is already marked as true")
+                    print("[orange]The task is already marked as true[/orange]")
                     return
 
-        print("The index you entered isn't in the tasks") # if all fails we tell the user that the intered index is out of range
+        print("[red]The index you entered isn't in the tasks[/red]") # if all fails we tell the user that the intered index is out of range
 
 # we make the fourth command task remove 
 @todo_list.command()
@@ -100,21 +101,21 @@ def remove(index: int = 1, all: bool = False):
                     confirmation = input(f"are you sure you want to remove {v} (y/N): ") # confirmation on wheter or not to delete the task
                     if confirmation == "y":
                         tasks_to_remove.pop(v)
-                        print(f"Task {v} removed")
+                        pr(f"[green]Task {v} removed[/green]")
                         write_json(tasks_to_remove)
                         return
                     else:
-                        print(f"Task {v} not removed")
+                        pr(f"[green]Task {v} not removed[/green]")
                         return
 
-            print("The index you entered is out of range") # if all fails we tell the user that the intered index is out of range
+            pr("[red]The index you entered is out of range[/red]") # if all fails we tell the user that the intered index is out of range
         else:
             confirmation = input(f"are you sure you want to remove the entire list (y/N): ")
             if confirmation == "y":
                 write_json({})
-                print("all tasks are removed successfully")
+                pr("[green]all tasks are removed successfully[/green]")
             else:
-                print("The list was not removed")
+                pr("[green]The list was not removed[/green]")
 
 # runs the program as a python script
 if __name__ == "__main__":
