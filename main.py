@@ -63,15 +63,18 @@ def list():
 @todo_list.command()
 def mark_done(index: int):
     tasks_to_mark = read_json()
+    if len(tasks_to_mark) == 0:
+        print("You don't have any tasks in the list yet,")
+        print("use the 'add' command to add tasks to your list")
+    else:
+        # we mark the task done by checking the given index subracted by one because the user will enter a one index number not 0 indexed
+        for i, v in enumerate(tasks_to_mark):
+            if index - 1 == i:
+                tasks_to_mark[v] = True
+                print(f"{v} marked done")
 
-    # we mark the task done by checking the given index subracted by one because the user will enter a one index number not 0 indexed
-    for i, v in enumerate(tasks_to_mark):
-        if index - 1 == i:
-            tasks_to_mark[v] = True
-            print(f"{v} marked done")
-
-    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
-        json.dump(tasks_to_mark, write_file, indent=4)
+        with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+            json.dump(tasks_to_mark, write_file, indent=4)
 
 # we make the fourth command task remove 
 @todo_list.command()
