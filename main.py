@@ -20,7 +20,7 @@ def add_task(task: str):
 def list_tasks():
     with open("tasks.json", mode="r", encoding="utf-8") as read_file:
         tasks_to_list = json.load(read_file)
-    
+
     for i, v in enumerate(tasks_to_list):
         print(f"{i + 1} - {v}")
 
