@@ -1,19 +1,17 @@
 import typer
 
-app = typer.Typer()
+todo_list = typer.Typer()
 
-@app.command()
-def hello(name):
-    print(f"Hello {name}")
+tasks = []
 
+@todo_list.command()
+def add_task(task: str):
+    tasks.append(task)
 
-@app.command()
-def goodbye(name, formal = False):
-    if formal:
-        print(f"Goodbye Ms. {name}. Have a good day.")
-    else:
-        print(f"Bye {name}!")
-
+@todo_list.command()
+def list_tasks():
+    for index, value in enumerate(tasks):
+        print(f"{index + 1} - {value}")
 
 if __name__ == "__main__":
-    app()
+    todo_list()
