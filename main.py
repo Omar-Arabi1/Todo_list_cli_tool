@@ -14,6 +14,14 @@ and all will be saved in a .json file
 # we make the app run as a python script not as a typer script
 todo_list = typer.Typer()
 
+def write_json(dict_to_json):
+    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+        json.dump(dict_to_json, write_file, indent=4)
+
+def read_json():
+    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
+            return json.load(read_file)
+
 # we make the first command add to add a task
 @todo_list.command()
 def add(task: str):
@@ -32,15 +40,13 @@ def add(task: str):
         print("tasks added successfully")
 
     # we finally save the dictionary "tasks" into the tasks.json file 
-    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
-        json.dump(tasks, write_file, indent=4)
+    write_json(tasks)
 
 # we make the second command list
 @todo_list.command()
 def list():
     # we open the file for reading 
-    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
-        tasks_to_list = json.load(read_file)
+    tasks_to_list = read_json()
 
     # we loop through it adding the index plus 1 to be one indexed not zero indexed and we put the key next to it
     # and we also check if its done or not so we show the user a message
@@ -53,8 +59,7 @@ def list():
 # we make the third command mark-done
 @todo_list.command()
 def mark_done(index: int):
-    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
-        tasks_to_mark = json.load(read_file)
+    tasks_to_mark = read_json()
 
     # we mark the task done by checking the given index subracted by one because the user will enter a one index number not 0 indexed
     for i, v in enumerate(tasks_to_mark):
@@ -69,8 +74,7 @@ def mark_done(index: int):
 @todo_list.command()
 # both these are now options one to remove a certain index default one the other to remove all default False
 def remove(index: int = 1, all: bool = False):
-    with open("tasks.json", mode="r", encoding="utf-8") as read_file:
-        tasks_to_remove = json.load(read_file)
+    tasks_to_remove = read_json()
     
     if not all: # we check if the user made the option to true 
         for i, v in enumerate(tasks_to_remove):
@@ -85,14 +89,12 @@ def remove(index: int = 1, all: bool = False):
                     print(f"Task {v} not removed")
                     break
         
-        with open("tasks.json", mode="w", encoding="utf-8") as write_file:
-            json.dump(tasks_to_remove, write_file, indent=4)
+        write_json(tasks_to_remove)
     else:
         confirmation = input(f"are you sure you want to remove the entire list (y/N): ")
         if confirmation == "y":
-            with open("tasks.json", mode="w", encoding="utf-8") as write_file:
-                json.dump({}, write_file, indent=4)
-                print("all tasks are removed successfully")
+            write_json({})
+            print("all tasks are removed successfully")
         else:
             print("The list was not removed")
 
