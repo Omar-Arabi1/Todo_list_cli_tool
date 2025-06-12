@@ -41,7 +41,10 @@ def list():
 
     # we loop through it adding the index plus 1 to be one indexed not zero indexed and we put the key next to it
     for i, v in enumerate(tasks_to_list):
-        print(f"{i + 1} - {v}")
+        if tasks_to_list[v] == False:
+            print(f"{i + 1} - {v} - not done")
+        else:
+            print(f"{i + 1} - {v} - done")
 
 # we make the third command mark-done
 @todo_list.command()
@@ -59,18 +62,22 @@ def mark_done(index: int):
 
 # we make the fourth command task remove 
 @todo_list.command()
-def remove(index: int):
+def remove(index: int = 1, remove_all: bool = False):
     with open("tasks.json", mode="r", encoding="utf-8") as read_file:
         tasks_to_remove = json.load(read_file)
     
-    for i, v in enumerate(tasks_to_remove):
-        if index - 1 == i:
-            # we check the index remove it and break out of the loop we break because we can't change the size of the iterable during the loop
-            tasks_to_remove.pop(v)
-            break
-    
-    with open("tasks.json", mode="w", encoding="utf-8") as write_file:
-        json.dump(tasks_to_remove, write_file, indent=4)
+    if not remove_all:
+        for i, v in enumerate(tasks_to_remove):
+            if index - 1 == i:
+                # we check the index remove it and break out of the loop we break because we can't change the size of the iterable during the loop
+                tasks_to_remove.pop(v)
+                break
+        
+        with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+            json.dump(tasks_to_remove, write_file, indent=4)
+    else:
+        with open("tasks.json", mode="w", encoding="utf-8") as write_file:
+            json.dump({}, write_file, indent=4)
 
 # runs the program as a python script
 if __name__ == "__main__":
