@@ -11,6 +11,7 @@ This is my first attempt at making a CLI tool with Python or any language. I dec
   - [list command](#list-command)
   - [mark-done command](#mark-done-command)
   - [remove command](#remove-command)
+- [Installation](#installation)
 
 ---
 
@@ -55,3 +56,30 @@ The command could take two options:
 The `--index` takes in the index (one-indexed, not zero-indexed) and its default is one, so it will remove the first task.
 
 The `--all` takes nothing and will remove the entire list, so be careful! There is a confirmation message before it removes anything; if you don't enter anything but 'y', it will not remove it.
+
+## Installation
+
+the inistallation is pretty simple just follow these steps:
+
+1. install the program from [this link](https://github.com/Omar-Arabi1/Todo_list_cli_tool/releases/download/V1.1/install.sh)
+2. (VERY IMPORTANT!) move the installed file into the home directory
+3. run this one lovely command `sudo bash install.sh`
+
+and that is it what this script does is
+
+- installs the program's zipped folder
+- extracts the zipped folder
+- moves it to the correct path
+- adds the path to the .bashrc to be accessable from everywhere
+
+this is it you installed it congrats!
+
+---
+please do not ask me to add any more code for this you are free to fork it, but I won't improve it
+based on any given code from you because of many reasons which are
+
+- I don't know how to (I am still new to all this)
+- I did this to learn how to make cli tools so I may not put more to this project unless later if I see any learning value 
+
+--
+thanks for installing the program enjoy!
