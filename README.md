@@ -71,6 +71,7 @@ and that is it what this script does is
 - extracts the zipped folder
 - moves it to the correct path
 - adds the path to the .bashrc to be accessable from everywhere
+- and removes the installed zipped folder
 
 this is it you installed it congrats!
 
