@@ -63,8 +63,9 @@ the inistallation is pretty simple just follow these steps:
 
 1. install the program from [this link](https://github.com/Omar-Arabi1/Todo_list_cli_tool/releases/download/V1.1/install.sh)
 2. (VERY IMPORTANT!) move the installed file into the home directory
-3. run this one lovely command `sudo bash install.sh`
-4. run `source ~/.bashrc`
+3. run this command `chmod +x install.sh` to make it executable
+4. run this command `./install.sh`
+5. run `source ~/.bashrc`
 
 and that is it what this script does is
 
