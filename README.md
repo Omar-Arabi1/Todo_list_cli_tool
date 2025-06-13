@@ -20,6 +20,8 @@ This is my first attempt at making a CLI tool with Python or any language. I dec
 to run it just type `todo` and any of these options is valid
 There are four commands in total in this program: `add`, `list`, `mark-done`, and `remove`.
 
+so to run anything type `todo command` and the command being one of these commands at the top
+
 ---
 
 ## add command
