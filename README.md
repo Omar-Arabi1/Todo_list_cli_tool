@@ -75,6 +75,9 @@ and that is it what this script does is
 
 this is it you installed it congrats!
 
+**NOTE**: for now the app is only available on Linux if you know how to make it available on other operating systems like mac
+          or windows send it in the repo as well as any issues you may encounter
+
 ---
 please do not ask me to add any more code for this you are free to fork it, but I won't improve it
 based on any given code from you because of many reasons which are
